@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pista programada</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #0f172a;
+      color: #f1f5f9;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+    }
+
+    #countdown {
+      font-size: 3rem;
+      font-weight: bold;
+      background: #1e293b;
+      padding: 1rem 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 15px rgba(255,255,255,0.2);
+      margin-bottom: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="loading">Carregant… ⏳</div>
+  <div id="countdown">--:--:--</div>
+
+  <script>
+    // Fecha objetivo → 23 diciembre 2025 a las 22:00
+    const objetivo = new Date("2025-12-23T22:00:00");
+
+    // 👉 URL a la que se redirigirá al finalizar
+    const urlFinal = "https://streamable.com/0f8g2o";
+
+    const countdown = document.getElementById("countdown");
+
+    function actualizarCuenta() {
+      const ahora = new Date();
+      const restante = Math.floor((objetivo - ahora) / 1000);
+
+      if (restante > 0) {
+        const horas = Math.floor(restante / 3600);
+        const minutos = Math.floor((restante % 3600) / 60);
+        const segundos = restante % 60;
+
+        countdown.textContent =
+          `${String(horas).padStart(2, '0')}:${String(minutos).padStart(2, '0')}:${String(segundos).padStart(2, '0')}`;
+      } else {
+        // ⏱️ Tiempo cumplido → abrir página web
+        window.location.href = urlFinal;
+      }
+    }
+
+    setInterval(actualizarCuenta, 1000);
+    actualizarCuenta();
+  </script>
+
+</body>
+</html>
+
